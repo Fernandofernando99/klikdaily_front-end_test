@@ -61,6 +61,25 @@ function App() {
           confirmButtonText: 'Ok'
         })
       }
+    } else if ( name === 'orderName' ) {
+      if (value === '') {
+        return setOrderState({
+          orderName: '',
+          distributionCenter: '',
+          notes: '',
+          paymentType: '',
+          expiredDate: '',
+          productsChosen: [
+            {
+              productName: '',
+              productUnit: '',
+              productPrice: '',
+              productQty: '',
+              productTotalPrice: ''
+            }
+          ]
+        })
+      }
     }
     return setOrderState({...orderState, [name]: value})
   }
@@ -214,7 +233,7 @@ function App() {
                     orderState.orderName === ''
                     ? <option defaultValue>No Data Available</option>
                     : <> 
-                        <option defaultValue>Distribution Center</option>
+                        <option defaultValue value=''>Distribution Center</option>
                         <option value="tangerang">DC Tangerang</option>
                         <option value="cikarang">DC Cikarang</option>
                       </>   
@@ -227,7 +246,7 @@ function App() {
                 <div className="form-row">
                   <div className="col">
                     <label htmlFor="paymentType">Payment Type*</label>
-                    <select className="custom-select" value={orderState.paymentType} name="paymentType" onChange={(e) => handleInputChange(e)}>
+                    <select required className="custom-select" value={orderState.paymentType} name="paymentType" onChange={(e) => handleInputChange(e)}>
                       <option defaultValue value="">Payment Type</option>
                       <option value="cashH1">Cash H+1</option>
                       <option value="cashH3">Cash H+3</option>
@@ -239,7 +258,7 @@ function App() {
                   </div>
                   <div className="col">
                     <label htmlFor="expiredDate">Expired Date*</label><br></br>
-                    <input type="date" name="expiredDate" value={orderState.expiredDate}
+                    <input required type="date" name="expiredDate" value={orderState.expiredDate}
                     onChange={(e) => handleInputChange(e)}  className="form-control"></input>
                   </div>
                 </div>
